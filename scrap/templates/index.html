@@ -1,0 +1,67 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+       
+        
+    </head>
+    <body >
+        <!------------------------header------------------------>
+        <div class="container-fluid">
+            <header>
+            
+                <nav class='navbar bg-dark navbar-dark navbar-expand-sm'>
+                    <div class="navbar-brand">WebscrapFromFlipkart</div>
+                </nav>
+            
+            </header>
+            {% with messages = get_flashed_messages(with_categories=true)%}<!--withcategory true allow us to get category sucess-->
+            {%if messages%}
+            {%for category,message in messages%}
+                <div class="alert alert-{{category}}">
+                    {{message}}
+                </div>
+            {%endfor%}
+            {%endif%}
+            {% endwith %}
+  
+  <hr>
+            <p class="text-dark">This will give you the csv file of first 100 comments on the item you will search as well as its <span class="text-info">Download Link</span></p>
+            <div style="margin-left: 3%;">
+                <form method="POST" action="{{url_for('webscrap')}}">
+                    <input type="text" name="search" placeholder="search products.." minlength="2" required>
+                    <button class="btn btn-success" type='submit' onclick="js_func();">search</button>
+                </form>
+            <p id='ajax'>Search products to get data here....</p>
+            
+            
+            {%if link and link!=0 %}
+                <a href="{{link}}"><b>Download</b> as csv</a>
+            {%endif%}
+                <hr>
+            {{df|safe}}
+            </div>
+
+        </div>
+        <!------------------------end-header------------------------>
+
+         <!-- jQuery library -->
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+         <!-- Popper JS -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ 
+         <!-- Latest compiled JavaScript -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+         <script type="text/javascript">
+             js_func=function(){
+                
+                alert("This may take few seconds....");
+                $('#ajax').html('collecting...')
+             };
+         </script>
+    </html>

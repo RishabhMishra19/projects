@@ -1,0 +1,7 @@
+flask
+pandas
+os
+secrets
+requests
+lxml
+bs4
